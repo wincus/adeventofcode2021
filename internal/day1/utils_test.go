@@ -7,7 +7,7 @@ import (
 )
 
 type Test struct {
-	input []string
+	input []int
 	p     common.Part
 	want  int
 }
@@ -16,33 +16,33 @@ func TestSolver(t *testing.T) {
 
 	tests := []Test{
 		{
-			input: []string{
-				"199",
-				"200",
-				"208",
-				"210",
-				"200",
-				"207",
-				"240",
-				"269",
-				"260",
-				"263",
+			input: []int{
+				199,
+				200,
+				208,
+				210,
+				200,
+				207,
+				240,
+				269,
+				260,
+				263,
 			},
 			p:    common.Part1,
 			want: 7,
 		},
 		{
-			input: []string{
-				"199",
-				"200",
-				"208",
-				"210",
-				"200",
-				"207",
-				"240",
-				"269",
-				"260",
-				"263",
+			input: []int{
+				199,
+				200,
+				208,
+				210,
+				200,
+				207,
+				240,
+				269,
+				260,
+				263,
 			},
 			p:    common.Part2,
 			want: 5,

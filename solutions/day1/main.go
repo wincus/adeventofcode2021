@@ -15,7 +15,13 @@ func main() {
 		log.Panicf("no data, no game ... sorry!")
 	}
 
+	i, err := common.ToInt(d)
+
+	if err != nil {
+		log.Panicf("could not convert input data to int ... sorry!")
+	}
+
 	for _, p := range []common.Part{common.Part1, common.Part2} {
-		log.Printf("Solution for Part %v: %v", p, day1.Solve(d, p))
+		log.Printf("Solution for Part %v: %v", p, day1.Solve(i, p))
 	}
 }
