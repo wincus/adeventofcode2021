@@ -3,6 +3,7 @@ package day5
 import (
 	"fmt"
 	"log"
+	"math"
 	"regexp"
 
 	"github.com/wincus/adventofcode2021/internal/common"
@@ -19,7 +20,7 @@ type coord struct {
 }
 
 const (
-	SIZE = 10
+	SIZE = 1000
 )
 
 type field [SIZE][SIZE]int
@@ -102,29 +103,81 @@ func Parse(s []string) ([]line, error) {
 
 }
 
+// connect draws a line on a map
+// TODO: this is unnecesarly complex, Im sure there is an easier
+// way to do this.
 func (f *field) connect(l line, allowDiagonal bool) {
 
-	// swap coordinates if needed
-	if l.start.x > l.end.x || l.start.y > l.end.y {
-		l.start, l.end = l.end, l.start
-	}
+	// vertical line ( fixed at x = c )
+	if l.start.x == l.end.x {
 
-	// ignore non horizontal or vertical lines
-	if l.start.x != l.end.x && l.start.y != l.end.y {
-
-		if !allowDiagonal {
-			return
+		// swap if needed for iteration
+		if l.start.y > l.end.y {
+			l.start, l.end = l.end, l.start
 		}
 
-		// 45 degree diagonals are the only ones supported
-		if (l.end.x - l.start.x) != (l.start.y + l.end.y) {
-			return
+		for i := l.start.y; i <= l.end.y; i++ {
+			(*f)[i][l.start.x]++
 		}
+
+		return
 	}
 
-	for x := l.start.y; x <= l.end.y; x++ {
-		for y := l.start.x; y <= l.end.x; y++ {
-			(*f)[x][y]++
+	// horizontal line ( fixed at y = c )
+	if l.start.y == l.end.y {
+
+		// swap if needed for iteration
+		if l.start.x > l.end.x {
+			l.start, l.end = l.end, l.start
+		}
+
+		for i := l.start.x; i <= l.end.x; i++ {
+			(*f)[l.start.y][i]++
+		}
+
+		return
+	}
+
+	// if no diagonal lines are allowed, return
+	if !allowDiagonal {
+		return
+	}
+
+	ratioX := l.end.x - l.start.x
+	ratioY := l.end.y - l.start.y
+
+	// if diagonal lines are allowed, ensure are 45 degree lines
+	if math.Abs(float64(ratioX)) != math.Abs(float64(ratioY)) {
+		return
+	}
+
+	// inverted diagonal
+	if ratioX == ratioY {
+		if l.start.x > l.end.x {
+			l.start, l.end = l.end, l.start
+		}
+
+		if ratioX < 0 {
+			ratioX = -ratioX
+		}
+
+		for i := 0; i <= ratioX; i++ {
+			(*f)[l.start.y+i][l.start.x+i]++
+		}
+
+		return
+
+	} else {
+		if l.start.x > l.end.x {
+			l.start, l.end = l.end, l.start
+		}
+
+		if ratioX < 0 {
+			ratioX = -ratioX
+		}
+
+		for i := 0; i <= ratioX; i++ {
+			(*f)[l.start.y-i][l.start.x+i]++
 		}
 	}
 }

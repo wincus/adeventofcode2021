@@ -15,22 +15,22 @@ type Test struct {
 func TestSolver(t *testing.T) {
 
 	tests := []Test{
-		// {
-		// 	input: []string{
-		// 		"0,9 -> 5,9", // no changes
-		// 		"8,0 -> 0,8", // ?????
-		// 		"9,4 -> 3,4", // 3,4 -> 9,4
-		// 		"2,2 -> 2,1", // 2,1 -> 2,2
-		// 		"7,0 -> 7,4", // no changes
-		// 		"6,4 -> 2,0", // ignored
-		// 		"0,9 -> 2,9", // no changes
-		// 		"3,4 -> 1,4", // 1,4 -> 3,4
-		// 		"0,0 -> 8,8", // no changes
-		// 		"5,5 -> 8,2", // ignored
-		// 	},
-		// 	p:    common.Part1,
-		// 	want: 5,
-		// },
+		{
+			input: []string{
+				"0,9 -> 5,9", // no changes
+				"8,0 -> 0,8", // ?????
+				"9,4 -> 3,4", // 3,4 -> 9,4
+				"2,2 -> 2,1", // 2,1 -> 2,2
+				"7,0 -> 7,4", // no changes
+				"6,4 -> 2,0", // ignored
+				"0,9 -> 2,9", // no changes
+				"3,4 -> 1,4", // 1,4 -> 3,4
+				"0,0 -> 8,8", // no changes
+				"5,5 -> 8,2", // ignored
+			},
+			p:    common.Part1,
+			want: 5,
+		},
 		{
 			input: []string{
 				"0,9 -> 5,9",
