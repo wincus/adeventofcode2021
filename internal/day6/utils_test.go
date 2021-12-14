@@ -17,10 +17,17 @@ func TestSolver(t *testing.T) {
 	tests := []Test{
 		{
 			input: []string{
-				"3", "4", "3", "1", "2",
+				"3,4,3,1,2",
 			},
 			p:    common.Part1,
 			want: 5934,
+		},
+		{
+			input: []string{
+				"3,4,3,1,2",
+			},
+			p:    common.Part2,
+			want: 26984457539,
 		},
 	}
 
