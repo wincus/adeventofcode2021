@@ -69,7 +69,7 @@ func (g *group) calculateMinCost(p int, nonlinear bool) {
 
 		cost += k
 
-		// abort if cost is bigger than recorded
+		// abort if cost is bigger than the minimal recorded
 		if g.cost != 0 && cost > g.cost {
 			return
 		}
