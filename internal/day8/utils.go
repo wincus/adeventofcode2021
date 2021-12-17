@@ -23,10 +23,10 @@ var CANNOTPARSEREADING = errors.New("cannot parse reading")
 //    aaaa
 //   b    c
 //   b    c
-//	  dddd       // 0  1  2  3  4  5  6  7
+//    dddd       // 0  1  2  3  4  5  6  7
 //   e    f      // ^  a  b  c  d  e  f  g
 //   e    f      // |
-//	  gggg       // ( msb is not used )
+//    gggg       // ( msb is not used )
 //
 //
 // 0 -> 01110111 -> 0x77
