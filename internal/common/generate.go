@@ -57,6 +57,29 @@ func TestSolver(t *testing.T) {
 }
 `
 
+const MAIN = `package main
+
+import (
+	"log"
+
+	"github.com/wincus/adventofcode2021/internal/common"
+	"github.com/wincus/adventofcode2021/internal/day{{.Day}}"
+)
+
+func main() {
+
+	d, err := common.GetData({{.Day}})
+
+	if err != nil {
+		log.Panicf("no data, no game ... sorry!")
+	}
+
+	for _, p := range []common.Part{common.Part1, common.Part2} {
+		log.Printf("Solution for Part %v: %v", p, day{{.Day}}.Solve(d, p))
+	}
+}
+`
+
 type data struct {
 	Day string
 }
@@ -79,9 +102,32 @@ func Generate(day string) error {
 		return err
 	}
 
+	m, err := template.New("main").Parse(MAIN)
+
+	if err != nil {
+		return err
+	}
+
 	d := fmt.Sprintf("internal/day%s", day)
 
 	err = os.MkdirAll(d, 0755)
+
+	if err != nil {
+		return err
+	}
+
+	e := fmt.Sprintf("solutions/day%s", day)
+
+	err = os.MkdirAll(e, 0755)
+
+	if err != nil {
+		return err
+	}
+
+	fMain, _ := os.Create(fmt.Sprintf("%s/main.go", e))
+	defer fMain.Close()
+
+	err = m.Execute(fMain, data{day})
 
 	if err != nil {
 		return err
