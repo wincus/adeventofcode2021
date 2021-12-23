@@ -4,3 +4,6 @@ endif
 
 day%:
 	go run solutions/$@/main.go
+
+gen%:
+	go run cmd/generate/main.go --day $*

@@ -44,7 +44,7 @@ func (c caves) walk(s []string, p common.Part) int {
 
 	for _, n := range c[last].connect {
 
-		// checks if a given cave cab be visited
+		// checks if a given cave can be visited
 		if !c.check(n.name, s, p) {
 			continue
 		}
@@ -80,9 +80,14 @@ func (c caves) check(f string, s []string, p common.Part) bool {
 			return !common.Contains(f, s)
 		}
 
+		// allow a small cave to be visited once
+		if !common.Contains(f, s) {
+			return true
+		}
+
 		var count = make(map[string]int)
 
-		// for the rest of small cave, only 1 can be accessed twice
+		// for the rest of small caves, only 1 can be accessed twice
 		// while the rest can only be accessed once
 		for _, d := range s {
 			if c[d].kind == small {
@@ -90,14 +95,6 @@ func (c caves) check(f string, s []string, p common.Part) bool {
 			}
 		}
 
-		// if this is the first time visiting this particular
-		// small cave, then we are good to go
-		if _, ok := count[f]; !ok {
-			return true
-		}
-
-		// if this is the second time, we can only allow this visit
-		// if no other small cave has been visited twice.
 		for _, v := range count {
 			if v > 1 {
 				return false
