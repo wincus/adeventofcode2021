@@ -3,6 +3,7 @@ package common
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"os"
 )
 
@@ -109,6 +110,12 @@ func Generate(day string) error {
 	}
 
 	d := fmt.Sprintf("internal/day%s", day)
+
+	_, err = os.Stat(d)
+
+	if err == nil {
+		log.Fatal("Folder already exists.")
+	}
 
 	err = os.MkdirAll(d, 0755)
 
